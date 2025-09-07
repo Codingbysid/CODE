@@ -1,231 +1,214 @@
-# 🧠 CODE - Cognitive Dissonance Engine
+# CODE - Cognitive Dissonance Engine
 
-> **The world's first adversarial AI sparring partner** - Challenge your ideas, strengthen your arguments, and break creative blocks through intellectual friction.
+**An offline-first AI adversarial sparring partner for critical thinking and idea challenging**
 
-[![Electron](https://img.shields.io/badge/Electron-30.0.0-blue.svg)](https://electronjs.org/)
-[![License](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
-[![Platform](https://img.shields.io/badge/Platform-macOS%20%7C%20Windows%20%7C%20Linux-lightgrey.svg)](https://github.com/yourusername/code/releases)
+[![Version](https://img.shields.io/badge/version-2.0.0-blue.svg)](https://github.com/Codingbysid/CODE)
+[![License](https://img.shields.io/badge/license-MIT-green.svg)](LICENSE)
+[![Platform](https://img.shields.io/badge/platform-macOS%20%7C%20Windows%20%7C%20Linux-lightgrey.svg)](https://github.com/Codingbysid/CODE)
 
 ## 🎯 What is CODE?
 
-CODE is an **offline-first, AI-powered desktop application** that serves as your intellectual sparring partner. Unlike traditional AI assistants that help you, CODE challenges you - exposing logical fallacies, questioning assumptions, and pushing your thinking to new levels.
+CODE is a desktop application that serves as your **adversarial AI sparring partner**. Unlike traditional AI assistants that aim to help and agree, CODE challenges your ideas, arguments, and creative concepts to help you think more critically and strengthen your reasoning.
 
-**Perfect for:**
-- 🚀 **Startup founders** validating business ideas
-- 📚 **Researchers** strengthening academic arguments  
-- 🎨 **Creatives** breaking through creative blocks
-- 💼 **Professionals** stress-testing strategies
-- 🧠 **Thinkers** developing critical reasoning
+### Key Features
+- 🤖 **4 Adversarial Personas** + Devil's Advocate mode
+- 🎭 **Custom Personas** with import/export
+- 🏠 **100% Offline** - No data leaves your machine
+- 💾 **Session Management** with dashboard and search
+- 📄 **Multiple Export Formats** (PDF, Markdown, JSON, HTML)
+- ⌨️ **Comprehensive Keyboard Shortcuts**
+- 🎨 **Modern UI/UX** with themes and accessibility
+- 🔍 **Code Highlighting** and diff view
 
-## ✨ Key Features
-
-### 🎭 **Adversarial Personas**
-- **The Logician**: Exposes logical fallacies and reasoning gaps
-- **The Market Cynic**: Attacks market viability and business assumptions
-- **The Lateral Thinker**: Upends assumptions with unexpected scenarios
-- **The "Five Whys" Toddler**: Forces first-principles thinking
-
-### 🚀 **Advanced Capabilities**
-- **Session Templates**: 9 pre-built workflows for common use cases
-- **Custom Personas**: Create your own adversarial personalities
-- **Performance Analytics**: Track response times and token efficiency
-- **Virtual Scrolling**: Handle thousands of sessions efficiently
-- **Health Monitoring**: Automatic Ollama connection management
-
-### 💾 **Session Management**
-- **Smart Tagging**: Organize sessions by topic and purpose
-- **Export Options**: Markdown, PDF, and JSON formats
-- **Session Analytics**: Detailed insights into your thinking process
-- **Dashboard**: Powerful session browser with search and filtering
-
-## 🏗️ Architecture
-
-```
-┌─────────────────┐    ┌─────────────────┐    ┌─────────────────┐
-│   Electron UI   │◄──►│   Main Process  │◄──►│   Ollama API    │
-│   (Renderer)    │    │   (IPC Bridge)  │    │   (Local LLM)   │
-└─────────────────┘    └─────────────────┘    └─────────────────┘
-         │                       │                       │
-         │                       │                       │
-         ▼                       ▼                       ▼
-┌─────────────────┐    ┌─────────────────┐    ┌─────────────────┐
-│   React-like    │    │   SQLite DB     │    │   Model Cache   │
-│   State Mgmt    │    │   (Sessions)    │    │   (Performance) │
-└─────────────────┘    └─────────────────┘    └─────────────────┘
-```
-
-## 🚀 Getting Started
+## 🚀 Quick Start
 
 ### Prerequisites
-- **Node.js** 18+ and **npm**
-- **Ollama** installed and running locally
-- **Supported models**: llama3:8b, gpt-oss-20b, gpt-oss-120b
+- **Node.js** 18.0.0 or higher ([Download](https://nodejs.org))
+- **Ollama** for local AI models ([Download](https://ollama.com))
 
 ### Installation
 
-```bash
-# Clone the repository
-git clone https://github.com/yourusername/code.git
-cd code
+1. **Clone the repository**
+   ```bash
+   git clone https://github.com/Codingbysid/CODE.git
+   cd CODE
+   ```
 
-# Install dependencies
-npm install
+2. **Install dependencies**
+   ```bash
+   npm install
+   ```
 
-# Start the application
-npm start
+3. **Install and start Ollama**
+   ```bash
+   # macOS
+   brew install ollama
+   brew services start ollama
+   
+   # Windows/Linux - Download from ollama.com
+   ```
 
-# Build for distribution
-npm run build
-```
+4. **Pull a model**
+   ```bash
+   ollama pull llama3:8b
+   # or try: ollama pull gpt-oss-20b
+   ```
 
-### First Run
-1. **Launch CODE** - The app will automatically detect Ollama
-2. **Install a model** - Click "Pull Model" if needed
-3. **Choose a persona** - Select your adversarial partner
-4. **Start sparring** - Paste your idea and get challenged!
+5. **Launch the app**
+   ```bash
+   npm start
+   ```
 
-## 🎭 Using Session Templates
+## 🎮 How to Use
 
-CODE comes with **9 professional templates** for common use cases:
+### First Time Setup
+1. Launch the app - you'll see an onboarding tour
+2. Complete the 3-step welcome guide
+3. Start challenging your ideas!
 
-### 🏢 Business & Strategy
-- **Startup Pitch Review**: Market viability analysis
-- **Market Analysis**: Competitive landscape critique  
-- **Business Plan**: Feasibility and risk assessment
+### Basic Workflow
+1. **Type your idea** in the left panel
+2. **Choose a persona** (Logician, Market Cynic, Lateral Thinker, Five Whys)
+3. **Click "Challenge"** or press `⌘+Enter`
+4. **Watch the adversarial response** build in real-time
+5. **Save interesting sessions** for later review
 
-### 🎓 Academic & Research
-- **Research Paper**: Methodological rigor review
-- **Thesis Defense**: Argument strength testing
-- **Hypothesis**: Scientific validity critique
+### Advanced Features
+- **Devil's Advocate**: Press `⌘+Shift+Enter` for strongest counterargument
+- **Custom Personas**: Create your own adversarial styles
+- **Session Management**: Use the Dashboard to browse past conversations
+- **Export Options**: Save sessions as PDF, Markdown, JSON, or HTML
 
-### 🎨 Creative & Design
-- **Product Design**: User experience challenges
-- **Creative Concept**: Innovation push boundaries
-- **UX/UI Critique**: Accessibility and edge cases
+## ⌨️ Keyboard Shortcuts
 
-## 🔧 Technical Features
+| Shortcut | Action |
+|----------|--------|
+| `⌘+Enter` | Generate response |
+| `⌘+Shift+Enter` | Devil's Advocate mode |
+| `⌘+1-4` | Switch personas |
+| `⌘+K` | Open command palette |
+| `⌘+C` | Copy response |
+| `⌘+S` | Save session |
+| `⌘+D` | Open dashboard |
+| `⌘+T` | Toggle theme |
+| `Esc` | Clear session |
 
-### **Performance Optimizations**
-- **Virtual Scrolling**: Efficient rendering of large datasets
-- **Debounced Search**: Smooth real-time filtering
-- **Connection Health**: Proactive Ollama monitoring
-- **Automatic Retries**: Resilient error handling
+## 🎭 Adversarial Personas
 
-### **User Experience**
-- **Toast Notifications**: Professional feedback system
-- **Loading States**: Visual progress indicators
-- **Keyboard Shortcuts**: Power user navigation
-- **Theme Support**: Light/dark mode switching
+### The Logician 🔍
+- **Focus**: Logical fallacies, reasoning gaps
+- **Best for**: Academic arguments, research proposals
 
-### **Data Management**
-- **SQLite Database**: Local, encrypted session storage
-- **Export Formats**: Multiple output options
-- **Session Analytics**: Performance and usage insights
-- **Backup/Restore**: Data portability
+### The Market Cynic 💼
+- **Focus**: Market viability, competition, business reality
+- **Best for**: Startup ideas, business plans
 
-## 📊 Performance Metrics
+### The Lateral Thinker 🌀
+- **Focus**: Unexpected scenarios, contrarian angles
+- **Best for**: Creative projects, innovative solutions
 
-CODE tracks and displays real-time performance data:
+### The "Five Whys" Toddler 🧒
+- **Focus**: First principles, iterative questioning
+- **Best for**: Problem-solving, strategic planning
 
-- **Time to First Token (TTFT)**: Response latency
-- **Token Generation Speed**: Output efficiency
-- **Session Analytics**: Turn counts and message lengths
-- **Performance Trends**: Rolling averages and insights
-
-## 🔒 Privacy & Security
-
-- **100% Offline**: No data leaves your machine
-- **Local Processing**: All AI inference happens locally
-- **Encrypted Storage**: Session data is securely stored
-- **No Telemetry**: Zero tracking or analytics collection
+### Devil's Advocate 👹
+- **Focus**: Strongest possible counterargument
+- **Format**: Steelman → Vulnerabilities → Counterevidence → Next Probes
 
 ## 🛠️ Development
 
 ### Project Structure
 ```
-code/
-├── main.js              # Main Electron process
-├── preload.js           # Secure IPC bridge
+CODE/
+├── main.js              # Electron main process
+├── preload.js           # Secure bridge
+├── common.js            # Shared constants
 ├── renderer/            # UI components
-│   ├── index.html      # Main interface
-│   ├── dashboard.html  # Session management
-│   ├── renderer.js     # UI logic
-│   ├── dashboard.js    # Dashboard logic
-│   └── styles.css      # Styling
-├── package.json         # Dependencies and scripts
-└── README.md           # This file
+│   ├── index.html       # Main interface
+│   ├── dashboard.html   # Session management
+│   ├── renderer.js      # UI logic
+│   └── styles.css       # Styling
+└── utils/               # Utility modules
 ```
 
-### Key Technologies
-- **Electron**: Cross-platform desktop framework
-- **SQLite**: Local database with better-sqlite3
-- **Ollama**: Local LLM inference server
-- **Vanilla JavaScript**: No framework dependencies
-
-### Building
+### Available Scripts
 ```bash
-# Development
-npm run dev
-
-# Production build
-npm run build
-
-# Platform-specific builds
-npm run build:mac
-npm run build:win  
-npm run build:linux
+npm start          # Start development server
+npm run dev        # Development mode with hot reload
+npm run build      # Build for production
+npm run dist       # Create distribution packages
 ```
 
-## 🎯 Hackathon Categories
+### Building for Distribution
+```bash
+npm run build
+npm run dist
+```
 
-CODE is designed for the **GPT-OSS Hackathon** and targets:
+This creates installers for:
+- macOS: `.dmg` file
+- Windows: `.exe` installer
+- Linux: `.AppImage` and `.deb` packages
 
-- 🎭 **Wildcard**: Unique adversarial AI concept
-- 🤖 **Best Local Agent**: 100% offline operation
-- 🌍 **For Humanity**: Critical thinking development
+## 🔧 Troubleshooting
 
-## 🚀 Future Roadmap
+### Common Issues
 
-### **Short Term**
-- [ ] Advanced model parameter tuning
-- [ ] Session branching and comparison
-- [ ] Collaborative session sharing (file-based)
-- [ ] Enhanced export formats
+**App won't start**
+- Ensure Node.js 18+ is installed
+- Run `npm install` to install dependencies
+- Check that Ollama is running: `ollama list`
 
-### **Medium Term**
-- [ ] Plugin system for custom personas
-- [ ] Advanced analytics and insights
-- [ ] Multi-language support
-- [ ] Mobile companion app
+**"Model not found" error**
+- Pull the required model: `ollama pull llama3:8b`
+- Check model name in the app matches what you have installed
 
-### **Long Term**
-- [ ] Enterprise features and deployment
-- [ ] Advanced AI model integration
-- [ ] Educational platform expansion
-- [ ] Community-driven persona marketplace
+**Database errors**
+- The app will work without database (sessions stored in memory)
+- Check file permissions in the app's data directory
+
+**Performance issues**
+- Try a smaller model like `llama3:8b`
+- Close other applications to free up RAM
+- Adjust temperature and max tokens in the app
+
+### Getting Help
+- 📖 Read the [comprehensive documentation](about.md)
+- 🐛 [Report issues](https://github.com/Codingbysid/CODE/issues)
+- 💬 [Join discussions](https://github.com/Codingbysid/CODE/discussions)
+
+## 🎯 Use Cases
+
+### Business & Entrepreneurship
+- **Startup Pitch Validation**: Test your pitch against market cynicism
+- **Business Plan Critique**: Identify weaknesses before investors do
+- **Strategic Decision Testing**: Challenge assumptions in business strategy
+
+### Academic & Research
+- **Research Paper Review**: Strengthen arguments before publication
+- **Thesis Defense Preparation**: Practice defending your research
+- **Hypothesis Testing**: Challenge your assumptions rigorously
+
+### Creative & Design
+- **Product Design Critique**: Find usability and design flaws
+- **Creative Concept Validation**: Test creative ideas against reality
+- **Content Creation**: Challenge your writing and storytelling
+
+### Personal Development
+- **Critical Thinking Practice**: Develop stronger reasoning skills
+- **Decision Making**: Test important decisions from multiple angles
+- **Problem Solving**: Break through mental blocks and assumptions
 
 ## 🤝 Contributing
 
-We welcome contributions! Please see our [Contributing Guide](CONTRIBUTING.md) for details.
+We welcome contributions! Please see our [Contributing Guidelines](CONTRIBUTING.md) for details.
 
 ### Development Setup
-```bash
-# Fork and clone
-git clone https://github.com/yourusername/code.git
-cd code
-
-# Install dependencies
-npm install
-
-# Start development
-npm run dev
-
-# Run tests
-npm test
-
-# Submit PR
-git push origin feature/amazing-feature
-```
+1. Fork the repository
+2. Create a feature branch: `git checkout -b feature/amazing-feature`
+3. Commit your changes: `git commit -m 'Add amazing feature'`
+4. Push to the branch: `git push origin feature/amazing-feature`
+5. Open a Pull Request
 
 ## 📄 License
 
@@ -233,19 +216,17 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 ## 🙏 Acknowledgments
 
-- **Ollama** for local LLM inference
-- **Electron** for cross-platform desktop development
-- **GPT-OSS** community for inspiration and support
-- **Open source contributors** who made this possible
+- Built for the GPT-OSS Hackathon
+- Powered by [Ollama](https://ollama.com) for local AI inference
+- Built with [Electron](https://electronjs.org) for cross-platform desktop apps
 
-## 📞 Support
+## 📞 Contact
 
-- **Issues**: [GitHub Issues](https://github.com/yourusername/code/issues)
-- **Discussions**: [GitHub Discussions](https://github.com/yourusername/code/discussions)
-- **Documentation**: [Wiki](https://github.com/yourusername/code/wiki)
+- **GitHub**: [@Codingbysid](https://github.com/Codingbysid)
+- **Project**: [CODE Repository](https://github.com/Codingbysid/CODE)
 
 ---
 
-**Made with ❤️ for the GPT-OSS Hackathon**
+**CODE - Where your ideas meet their toughest critic, and emerge stronger.**
 
-*Challenge your assumptions. Strengthen your thinking. Break through creative blocks.*
+*Challenge, don't assist; provoke, don't comfort; strengthen through resistance.*
