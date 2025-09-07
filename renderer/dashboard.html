@@ -1,0 +1,45 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>CODE — Dashboard</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <div id="app">
+      <header class="app-header">
+        <h1>Dashboard</h1>
+        <div class="subtitle">Saved Sessions</div>
+      </header>
+      <main class="dash-grid">
+        <section class="list">
+          <div class="label with-action">
+            <span>Sessions</span>
+            <div class="dashboard-actions">
+              <input id="sessionSearch" class="input w-200" placeholder="Search title/tags"/>
+              <button id="forkBtn" class="ghost" title="Duplicate selected session">Fork</button>
+            </div>
+          </div>
+          <div id="sessions"></div>
+        </section>
+        <section class="details">
+          <div class="label with-action">
+            <span>History</span>
+            <div class="dashboard-meta-actions">
+              <input id="titleInput" class="input w-200" placeholder="Title"/>
+              <input id="tagsInput" class="input w-220" placeholder="tags (comma separated)"/>
+              <button id="updateMetaBtn" class="ghost">Save Meta</button>
+              <button id="exportBtn" class="ghost">Export</button>
+              <button id="deleteBtn" class="ghost delete-btn">Delete</button>
+            </div>
+          </div>
+          <pre id="history" class="history"></pre>
+        </section>
+      </main>
+    </div>
+    <script src="dashboard.js"></script>
+  </body>
+  </html>
+
+

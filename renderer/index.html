@@ -1,0 +1,265 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>CODE — Cognitive Dissonance Engine</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <div id="app">
+      <header class="app-header" role="banner">
+        <h1>CODE</h1>
+        <div class="subtitle">Cognitive Dissonance Engine</div>
+        <div class="keyboard-shortcuts" aria-label="Keyboard shortcuts">
+          ⌘+Enter: Generate | ⌘+Shift+Enter: Devil's Advocate | ⌘+K: Commands | ⌘+1-4: Personas | ⌘+C: Copy | ⌘+M: Code | ⌘+F: Focus | Esc: Clear
+        </div>
+        <div class="flex-1"></div>
+        <button id="dashboardBtn" class="ghost" title="Open Dashboard" aria-label="Open session dashboard">Dashboard</button>
+      </header>
+
+      <main class="grid" role="main">
+        <section class="input-panel" aria-labelledby="input-section-title">
+          <h2 id="input-section-title" class="sr-only">Input Section</h2>
+          <label for="userInput" class="label">Your idea, argument, or text</label>
+          <textarea 
+            id="userInput" 
+            class="textarea" 
+            placeholder="Paste or type here..." 
+            rows="10"
+            aria-describedby="input-help"
+            aria-label="Text input for adversarial analysis"
+          ></textarea>
+          <div id="input-help" class="sr-only">Enter your text to be analyzed by an adversarial AI persona</div>
+
+          <div class="personas" role="group" aria-labelledby="persona-group-title">
+            <div id="persona-group-title" class="label">Choose an adversarial persona</div>
+            <div class="persona-grid" role="radiogroup" aria-labelledby="persona-group-title">
+              <button class="persona" data-persona="logician" role="radio" aria-checked="true" aria-label="The Logician - identifies logical fallacies and reasoning gaps">The Logician</button>
+              <button class="persona" data-persona="market_cynic" role="radio" aria-checked="false" aria-label="The Market Cynic - provides ruthless market-based criticism">The Market Cynic</button>
+              <button class="persona" data-persona="lateral_thinker" role="radio" aria-checked="false" aria-label="The Lateral Thinker - challenges assumptions with unexpected scenarios">The Lateral Thinker</button>
+              <button class="persona" data-persona="five_whys" role="radio" aria-checked="false" aria-label="The Five Whys Toddler - asks iterative why questions">The "Five Whys" Toddler</button>
+            </div>
+            <div class="actions-row mt-8">
+              <button id="devilsBtn" class="ghost" title="Produce strongest counterargument">Devil's Advocate</button>
+              <button id="managePersonasBtn" class="ghost" title="Create or delete custom personas">Manage Personas</button>
+              <button id="sessionTemplatesBtn" class="ghost" title="Use session templates">Templates</button>
+            </div>
+          </div>
+
+          <div class="model-row">
+            <label for="modelInput" class="label">Local model</label>
+            <input id="modelInput" class="input" value="llama3:8b" />
+            <div class="model-opts">
+              <div>
+                <label class="label" for="tempInput">Temperature</label>
+                <input id="tempInput" class="input" type="number" step="0.1" min="0" max="2" value="0.7" />
+              </div>
+              <div>
+                <label class="label" for="maxTokensInput">Max tokens</label>
+                <input id="maxTokensInput" class="input" type="number" min="1" placeholder="auto" />
+              </div>
+            </div>
+            <div class="model-presets">
+              <span class="label m-0">Presets</span>
+              <button class="ghost model-preset" data-model="llama3:8b">llama3:8b</button>
+              <button class="ghost model-preset" data-model="gpt-oss-20b">gpt-oss-20b</button>
+              <button class="ghost model-preset" data-model="gpt-oss-120b">gpt-oss-120b</button>
+              <span class="subtitle ml-8">
+                <a href="https://ollama.com/library" target="_blank" rel="noopener noreferrer" class="models-guide-link">Models guide</a>
+              </span>
+            </div>
+            <div id="modelBanner" class="model-banner">
+              <span id="modelBannerText" class="model-banner-text">Model not installed.</span>
+              <button id="modelBannerBtn" class="ghost model-banner-btn">Pull</button>
+            </div>
+          </div>
+
+          <div class="session-meta">
+            <div class="session-meta-grid">
+              <div>
+                <label for="sessionTitleInput" class="label">Session title</label>
+                <input id="sessionTitleInput" class="input" placeholder="Optional title for this session" />
+              </div>
+              <div>
+                <label for="sessionTagsInput" class="label">Tags</label>
+                <input id="sessionTagsInput" class="input" placeholder="comma, separated, tags" />
+              </div>
+            </div>
+          </div>
+
+          <div class="actions">
+            <div class="actions-row">
+              <button id="newSessionBtn" class="ghost" title="Start a new session">New Session</button>
+              <button id="saveSessionBtn" class="ghost" title="Save current session">Save Session</button>
+              <button id="exportSessionBtn" class="ghost" title="Export session to Markdown">Export .md</button>
+              <button id="exportPdfBtn" class="ghost" title="Export session to PDF">Export .pdf</button>
+            </div>
+            <button id="generateBtn" class="primary">Challenge</button>
+          </div>
+        </section>
+
+        <section class="output-panel" aria-labelledby="output-section-title">
+          <h2 id="output-section-title" class="sr-only">Output Section</h2>
+          <div class="label with-action">
+            <span>Adversarial response</span>
+            <div class="output-actions" role="toolbar" aria-label="Output actions">
+              <button id="copyBtn" class="ghost" title="Copy to clipboard" aria-label="Copy response to clipboard">Copy</button>
+              <button id="toggleThemeBtn" class="ghost" title="Toggle theme" aria-label="Toggle between light and dark theme">Theme</button>
+              <button id="toggleCodeBtn" class="ghost" title="Toggle code view" aria-label="Toggle code syntax highlighting">Code</button>
+              <button id="showDiffBtn" class="ghost" title="Show diff vs last input" aria-label="Show differences between input and output">Diff</button>
+            </div>
+          </div>
+          <div id="streamMeta" class="subtitle mb-6" style="display:none;" aria-live="polite" aria-label="Generation statistics"></div>
+          <div id="output" class="output" aria-live="polite" aria-label="AI-generated adversarial response" role="region"></div>
+        </section>
+      </main>
+
+      <footer class="footer">
+        <span>Offline-first. No data leaves your machine.</span>
+      </footer>
+    </div>
+
+    <script src="../node_modules/prismjs/prism.js"></script>
+    <script src="../node_modules/prismjs/components/prism-python.min.js"></script>
+    <script src="../node_modules/prismjs/components/prism-typescript.min.js"></script>
+    <script src="../node_modules/prismjs/components/prism-json.min.js"></script>
+    
+    <!-- Toast Notification System -->
+    <div id="toastContainer" class="toast-container"></div>
+    
+    <script src="renderer.js"></script>
+    <!-- Personas modal -->
+    <div id="personasModal" class="modal-overlay">
+      <div class="modal-content">
+        <div class="label with-action">
+          <span>Custom Personas</span>
+          <div class="personas-header-actions">
+            <button id="exportPersonasBtn" class="ghost" title="Export all personas">Export</button>
+            <button id="importPersonasBtn" class="ghost" title="Import personas from file">Import</button>
+            <button id="closePersonasBtn" class="ghost">Close</button>
+          </div>
+        </div>
+        <div id="personasList" class="personas-list"></div>
+        <div class="grid-1 gap-6 mt-8">
+          <input id="personaNameInput" class="input" placeholder="Name (e.g., The Skeptical Scientist)"/>
+          <textarea id="personaPromptInput" class="textarea" rows="6" placeholder="System prompt for this persona..."></textarea>
+          <div class="personas-actions">
+            <button id="addPersonaBtn" class="primary">Add Persona</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <!-- Session Templates Modal -->
+    <div id="templatesModal" class="modal-overlay">
+      <div class="modal-content modal-content-wide">
+        <div class="label with-action">
+          <span>Session Templates</span>
+          <button id="closeTemplatesBtn" class="ghost">Close</button>
+        </div>
+        <div class="templates-content">
+          <div class="template-category">
+            <h4>Business & Strategy</h4>
+            <div class="template-grid">
+              <button class="template-btn" data-template="startup-pitch">Startup Pitch Review</button>
+              <button class="template-btn" data-template="market-analysis">Market Analysis</button>
+              <button class="template-btn" data-template="business-plan">Business Plan Critique</button>
+            </div>
+          </div>
+          <div class="template-category">
+            <h4>Academic & Research</h4>
+            <div class="template-grid">
+              <button class="template-btn" data-template="research-paper">Research Paper Review</button>
+              <button class="template-btn" data-template="thesis-defense">Thesis Defense</button>
+              <button class="template-btn" data-template="hypothesis">Hypothesis Testing</button>
+            </div>
+          </div>
+          <div class="template-category">
+            <h4>Creative & Design</h4>
+            <div class="template-grid">
+              <button class="template-btn" data-template="product-design">Product Design Review</button>
+              <button class="template-btn" data-template="creative-concept">Creative Concept</button>
+              <button class="template-btn" data-template="user-experience">UX/UI Critique</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Onboarding Modal -->
+    <div id="onboardingModal" class="modal-overlay">
+      <div class="modal-content modal-content-wide">
+        <div class="label with-action">
+          <span>Welcome to CODE</span>
+          <button id="closeOnboardingBtn" class="ghost">Skip Tour</button>
+        </div>
+        <div class="onboarding-content">
+          <div class="onboarding-step" data-step="1">
+            <h3>🎯 What is CODE?</h3>
+            <p>CODE is your <strong>adversarial sparring partner</strong> - an AI that challenges your ideas to help you think more critically and find weaknesses before others do.</p>
+            <div class="onboarding-features">
+              <div class="feature-item">
+                <strong>🎭 Personas:</strong> Choose from different adversarial styles (Logician, Market Cynic, etc.)
+              </div>
+              <div class="feature-item">
+                <strong>👹 Devil's Advocate:</strong> Get the strongest possible counterargument
+              </div>
+              <div class="feature-item">
+                <strong>💾 Sessions:</strong> Save and revisit your sparring matches
+              </div>
+            </div>
+          </div>
+          <div class="onboarding-step" data-step="2" style="display: none;">
+            <h3>⌨️ Keyboard Shortcuts</h3>
+            <div class="shortcuts-grid">
+              <div class="shortcut-item">
+                <kbd>⌘+Enter</kbd>
+                <span>Generate response</span>
+              </div>
+              <div class="shortcut-item">
+                <kbd>⌘+Shift+Enter</kbd>
+                <span>Devil's Advocate mode</span>
+              </div>
+              <div class="shortcut-item">
+                <kbd>⌘+1-4</kbd>
+                <span>Switch personas</span>
+              </div>
+              <div class="shortcut-item">
+                <kbd>⌘+K</kbd>
+                <span>Quick commands</span>
+              </div>
+              <div class="shortcut-item">
+                <kbd>Esc</kbd>
+                <span>Clear input</span>
+              </div>
+            </div>
+          </div>
+          <div class="onboarding-step" data-step="3" style="display: none;">
+            <h3>🚀 Quick Start</h3>
+            <ol class="onboarding-steps">
+              <li>Type or paste your idea in the left panel</li>
+              <li>Choose an adversarial persona (or use Devil's Advocate)</li>
+              <li>Click "Challenge" to get critical feedback</li>
+              <li>Save interesting sessions to revisit later</li>
+            </ol>
+            <div class="onboarding-tip">
+              <strong>💡 Pro tip:</strong> The more specific your input, the better the adversarial feedback will be.
+            </div>
+          </div>
+        </div>
+        <div class="onboarding-navigation">
+          <button id="onboardingPrev" class="ghost" disabled>Previous</button>
+          <div class="onboarding-dots">
+            <span class="dot active" data-step="1"></span>
+            <span class="dot" data-step="2"></span>
+            <span class="dot" data-step="3"></span>
+          </div>
+          <button id="onboardingNext" class="primary">Next</button>
+        </div>
+      </div>
+    </div>
+  </body>
+  </html>
+
+
